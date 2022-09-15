@@ -6,7 +6,7 @@ window.onload = ()=>{
     const app:Application = new Game({
         width:innerWidth,
         height:innerHeight,
-        backgroundColor: 0x996633,
+        backgroundColor: 0x888844,
         sharedLoader: true,
         sharedTicker: true
     });

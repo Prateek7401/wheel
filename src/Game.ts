@@ -1,14 +1,26 @@
-import {Application, Sprite} from 'pixi.js';
+import {Application, Sprite,Text} from 'pixi.js';
 import {gsap} from 'gsap';
 export class Game extends Application{
     private spin:boolean;
-    private sliceAngle = 360/7;
+    private sliceAngle = 360/16;
     constructor(opts:any) {
         super(opts);
         this.preload([
-            {name:'wheel', url:'assets/wheel.webp'},
+            {name:'wheel', url:'assets/w2.png'},
             {name:'arrow',url:'assets/arrow1.png'}
         ], this.onLoad.bind(this));
+    }
+    pro(random:any):any{
+        let arr=[500,100,80,200,800,100,320400,60,350,700,50,120,160,900,550];
+        const t=new Text("Congratulations U have won "+arr[random]+ " rupees");
+        console.log(arr[random]);
+        setTimeout(() => {
+            t.x=this.screen.height/2;
+            t.y=this.screen.width/2-110
+
+            this.stage.addChild((t)); 
+        }, 5000);
+        // this.stage.addChild(t);
     }
     preload(list:any[], cb:()=>{}):void {
         this.loader.add(list);
@@ -22,7 +34,7 @@ export class Game extends Application{
         wheel.x = this.screen.width/2;
         wheel.y = this.screen.height/2;
         arrow.x = this.screen.width/2;
-        arrow.y = this.screen.height/2-250;
+        arrow.y = this.screen.height/2-110;
         arrow.width=50;
         arrow.height=65;
         this.stage.addChild(wheel);
@@ -32,9 +44,10 @@ export class Game extends Application{
         wheel.buttonMode = true;
         console.log(this.stage);
         wheel.on('pointerup', ()=>{
-            let random = Math.floor(Math.random()*7);
+            let random = Math.floor(Math.random()*16);
             let stopAngle = random * this.sliceAngle;
             gsap.fromTo(wheel,{angle:0},{angle:3600+stopAngle, duration:5, ease:'expo.out'});
+            this.pro(random);
         });
     }
 }
