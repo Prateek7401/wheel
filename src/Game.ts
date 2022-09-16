@@ -11,15 +11,19 @@ export class Game extends Application{
         ], this.onLoad.bind(this));
     }
     pro(random:any):any{
-        let arr=[500,100,80,200,800,100,320400,60,350,700,50,120,160,900,550];
-        const t=new Text("Congratulations U have won "+arr[random]+ " rupees");
+        let arr=[500,100,80,200,800,100,320,400,60,350,700,50,120,160,900,550];
+        const t=new Text(`Congratulations U have won ${arr[random]} rupees`);
+        t.x=this.screen.height/2;
+            t.y=this.screen.width/2-110;
+            this.stage.addChild((t));
+
         console.log(arr[random]);
         setTimeout(() => {
-            t.x=this.screen.height/2;
-            t.y=this.screen.width/2-110
-
-            this.stage.addChild((t)); 
-        }, 5000);
+            
+            t.visible=false;
+            this.onLoad();
+             
+        }, 3000);
         // this.stage.addChild(t);
     }
     preload(list:any[], cb:()=>{}):void {
@@ -47,7 +51,10 @@ export class Game extends Application{
             let random = Math.floor(Math.random()*16);
             let stopAngle = random * this.sliceAngle;
             gsap.fromTo(wheel,{angle:0},{angle:3600+stopAngle, duration:5, ease:'expo.out'});
+           setTimeout(()=>{
             this.pro(random);
+            
+           },6000);
         });
     }
 }
